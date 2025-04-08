@@ -3,7 +3,7 @@ import AiExtractorAssistant from "../AiExtracterAssistantModule /AiExtracterAssi
 // Response handling pipeline
 
 const findRecipes = (req, res) => {
-  AiExtractorAssistant(  req.query.textInput)
+  AiExtractorAssistant(req.query.textInput)
     .then((responseData) => {
       const apiKey = process.env.SPOONACULAR_API_KEY;
       if (
@@ -13,8 +13,9 @@ const findRecipes = (req, res) => {
         const formattedQuery = encodeURIComponent(responseData.recipe_name)
           .replace(/%20/g, "+")
           .replace(/'/g, "%27");
+
         return fetch(
-          `https://api.spoonacular.com/recipes/complexSearch?query=${formattedQuery}&number=5&instructionsRequired=true&addRecipeInformation=true&apiKey=${apiKey}`
+          `https://api.spoonacular.com/recipes/complexSearch?query=${formattedQuery}&number=50&instructionsRequired=true&addRecipeInformation=true&apiKey=${apiKey}`
         )
           .then((res) => res.json())
 
@@ -32,7 +33,7 @@ const findRecipes = (req, res) => {
       ) {
         const ingredientsString = responseData.ingredients.join(",");
         return fetch(
-          `https://api.spoonacular.com/recipes/findRecipes?ingredients=${ingredientsString}&number=10&ranking=2&instructionsRequired=true&ignorePantry=true&apiKey=${apiKey}`
+          `https://api.spoonacular.com/recipes/findRecipes?ingredients=${ingredientsString}&number=50&ranking=2&instructionsRequired=true&ignorePantry=true&apiKey=${apiKey}`
         )
           .then((res) => res.json())
 

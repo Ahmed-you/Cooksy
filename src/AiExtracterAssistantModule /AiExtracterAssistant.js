@@ -13,15 +13,15 @@ export function AiExtractorAssistant(userInput) {
   conversationHistory.push({ role: "user", content: userInput });
 
   // Enforce conversation history limits
-  if (conversationHistory.length > 8) {
-    conversationHistory = [
-      conversationHistory[0], // Keep system message
-      ...conversationHistory.slice(-7), // Keep last 7 messages
-    ];
-  }
+  // if (conversationHistory.length > 8) {
+  //   conversationHistory = [
+  //     conversationHistory[0], // Keep system message
+  //     ...conversationHistory.slice(-7), // Keep last 7 messages
+  //   ];
+  // }
 
   const requestData = {
-    model: "google/gemini-2.0-flash-001",
+    model: "openrouter/quasar-alpha",
     messages: conversationHistory,
     response_format: { type: "json_object" },
     temperature: 0.3,
@@ -49,8 +49,12 @@ const handleResponse = (response) => {
 };
 
 const validateJsonStructure = (data) => {
+  console.log(data);
+
   try {
     const content = extractJsonContent(data);
+    console.log(content);
+
     const parsed = JSON.parse(content);
 
     // Validate required structure

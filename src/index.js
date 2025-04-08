@@ -1,5 +1,5 @@
 import app from "./app.js";
-const port = process.env.PORT || 4001;
+const port = process.env.PORT || 4002;
 // imported the main router
 
 

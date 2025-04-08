@@ -3,10 +3,12 @@ import dotenv from "dotenv";
 import { dirname, join } from "path";
 import { fileURLToPath } from "url";
 import router from "./router/index.js";
+import cors from "cors";
 
 dotenv.config();
 
 const app = express();
+app.use(cors());
 app.use(express.json());
 app.use("/", router);
 //handel not found pages
@@ -24,4 +26,4 @@ app.disable("x-powered-by");
 const __dirname = dirname(fileURLToPath(import.meta.url));
 // app.use(favicon(path.join(__dirname, "../public", "favicon.ico")));
 
-export default app;
+export default app
