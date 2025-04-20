@@ -1,0 +1,128 @@
+@import url("../chat/style.css");
+@import url("../Main/style.css");
+@import url("../Models/style.css");
+@import url("../RecipeGrid/style.css");
+
+.main-container {
+  width: 720px;
+  padding: 16px 16px 25px 16px;
+  display: flex;
+  height: 100vh;
+  flex-direction: column;
+  justify-content: flex-start;
+  gap: 25%;
+  align-items: center;
+  transition: justify-content 0.5s ease;
+}
+/* header style */
+
+.cooksy-txt {
+  font-family: "Licorice", cursive;
+  font-weight: 400;
+  font-style: normal;
+  font-size: 80px;
+  margin: 0;
+}
+.top-line {
+  margin-top: 10px;
+  font-size: 16px;
+  font-family: "Bree Serif", serif;
+  font-weight: 100;
+  font-style: normal;
+  letter-spacing: 0.04em;
+  line-height: 22px;
+  text-align: center;
+  color: #2d2d2d;
+}
+.logo-container {
+  position: relative;
+  width: 100%;
+  display: flex;
+  flex-direction: row;
+  justify-content: center;
+  align-items: center;
+  text-align: center;
+}
+.cooksy-img {
+  width: 70px;
+}
+
+/* From ingredients to inspiration — Cooksy’s got you */
+
+/* cooksy input style */
+.input-label {
+  font-size: 36px;
+  margin-bottom: 33px;
+  font-family: "Inter", sans-serif;
+  font-optical-sizing: auto;
+  font-weight: 600;
+  font-style: normal;
+}
+.input-container {
+  width: 100%;
+  min-width: 100px;
+  position: relative;
+  display: flex;
+  flex-direction: row;
+  justify-content: center;
+  align-items: center;
+  text-align: center;
+}
+
+.form-slide-down {
+  transition: 0.7s cubic-bezier(1, 0, 0, 1);
+  transform: translateY(30vh);
+}
+
+.search-icon {
+  position: absolute;
+  right: 0;
+  padding-right: 10px;
+  height: 33px;
+}
+.send-icon {
+  position: absolute;
+  right: 0;
+  padding-right: 10px;
+  height: 33px;
+  cursor: pointer;
+}
+.block-send-icon {
+  filter: grayscale();
+}
+.cooksy-inp {
+  font-size: 15px;
+  width: 100%;
+  padding: 12px;
+  padding-right: 50px;
+  background-color: #d9d9d9;
+  border: none;
+  border-radius: 22px;
+}
+.form-container,
+.header {
+  width: 100%;
+  display: flex;
+  flex-direction: column;
+  justify-content: center;
+  align-items: center;
+  text-align: center;
+}
+
+.hide {
+  display: none;
+}
+
+.fade-effect {
+  transition: ease-out 0.4s;
+  transform: translateY(-15px);
+  opacity: 0;
+}
+.transition-effect {
+  transition: cubic-bezier(0.075, 0.82, 0.165, 1) 0.7s;
+}
+
+.ChatBoxFlexChange {
+  justify-content: space-between;
+  gap: 2%;
+}

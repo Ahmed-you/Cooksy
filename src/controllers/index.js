@@ -13,7 +13,6 @@ const findRecipes = (req, res) => {
         const formattedQuery = encodeURIComponent(responseData.recipe_name)
           .replace(/%20/g, "+")
           .replace(/'/g, "%27");
-
         return fetch(
           `https://api.spoonacular.com/recipes/complexSearch?query=${formattedQuery}&number=50&instructionsRequired=true&addRecipeInformation=true&apiKey=${apiKey}`
         )
@@ -39,6 +38,8 @@ const findRecipes = (req, res) => {
 
           .then((result) => {
             result.AIData = responseData;
+            console.log(result);
+
             res.json(result);
           })
           .catch((error) => {
