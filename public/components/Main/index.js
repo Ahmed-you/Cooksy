@@ -7,6 +7,7 @@ import { userBubble } from "../chat/ChatTemplate/userBubble.js";
 import { cooksyTypingIndicator } from "../chat/ChatTemplate/cooksyTypingIndicator.js";
 import { showRecipesInTheGridView } from "../RecipeGrid/index.js";
 import { ShowSelectedRecipe } from "../Models/RecipeDetailsModel/index.js";
+import { BASE_URL } from "../../main.js";
 
 export const handelCooksyFlow = (userMsg) => {
   const chatBox = document.querySelector(".chatBox");
@@ -25,7 +26,7 @@ export const handelCooksyFlow = (userMsg) => {
 
 const cooksyRes = (userMsg) => {
   return new Promise((resolve, reject) => {
-    fetch(`http://localhost:4002/findRecipes?textInput=${userMsg}`)
+    fetch(`${BASE_URL}/findRecipes?textInput=${userMsg}`)
       .then((res) => {
         return res.json();
       })
