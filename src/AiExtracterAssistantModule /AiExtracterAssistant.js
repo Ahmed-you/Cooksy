@@ -21,7 +21,7 @@ export function AiExtractorAssistant(userInput) {
   // }
 
   const requestData = {
-    model: "openrouter/quasar-alpha",
+    model: "shisa-ai/shisa-v2-llama3.3-70b:free",
     messages: conversationHistory,
     response_format: { type: "json_object" },
     temperature: 0.3,

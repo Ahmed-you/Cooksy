@@ -16,12 +16,12 @@
 
 Cooksy is a chat-based AI assistant that helps you find recipes based on:
 
-- 🍽️ A dish you're craving  
+- 🍽️ A dish you're craving
 - 🥕 Ingredients you already have in your kitchen
 
-Just type a message like *"I have chicken and rice"* or *"Find pasta recipes"* and Cooksy will guide you toward the best matching options using the Spoonacular API.
+Just type a message like _"I have chicken and rice"_ or _"Find pasta recipes"_ and Cooksy will guide you toward the best matching options using the Spoonacular API.
 
-> ✨ **Coming Soon**: You'll also be able to view full recipe details and cook along with step-by-step guidance 
+> ✨ **Coming Soon**: You'll also be able to view full recipe details and cook along with step-by-step guidance
 
 ---
 
@@ -39,6 +39,6 @@ Just type a message like *"I have chicken and rice"* or *"Find pasta recipes"* a
 
 1. 🧠 Tell Cooksy what you want to cook, or what ingredients you have.
 2. 🔍 She searches the Spoonacular API for recipes that match.
-3. 🖱️ Click on any recipe to view more info. *(More details will be added soon!)*
+3. 🖱️ Click on any recipe to view more info. _(More details will be added soon!)_
 
 ---
