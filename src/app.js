@@ -1,13 +1,25 @@
 import express from "express";
 import dotenv from "dotenv";
-import { dirname, join } from "path";
+import path from "path";
 import { fileURLToPath } from "url";
+
 import router from "./router/index.js";
 import cors from "cors";
 
 dotenv.config();
 
 const app = express();
+const __filename = fileURLToPath(import.meta.url);
+const __dirname = path.dirname(__filename);
+
+// Serve static files from public/
+app.use(express.static(path.join(__dirname, "../public")));
+
+// Serve index.html for root route
+app.get("/", (req, res) => {
+  res.sendFile(path.join(__dirname, "../public/index.html"));
+});
+
 app.use(cors());
 app.use(express.json());
 app.use("/", router);
@@ -23,7 +35,6 @@ app.use((err, req, res, next) => {
 
 app.disable("x-powered-by");
 
-const __dirname = dirname(fileURLToPath(import.meta.url));
 // app.use(favicon(path.join(__dirname, "../public", "favicon.ico")));
 
-export default app
+export default app;
