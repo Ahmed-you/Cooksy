@@ -4,7 +4,7 @@ export const cookingInstructionPage = `
       <div class="header">
         <svg class="return-icon instructionPage-returnBTN" width="37" height="37" viewBox="0 0 37 37" fill="none"
           xmlns="http://www.w3.org/2000/svg">
-          <circle class="icon-bg" cx="18.5" cy="18.5" r="18.5" fill="none" />
+          <circle class="icon-bg" cx="18.5" cy="18.5" r="18.5" fill="#fff8f0" />
           <path d="M20.4324 10.4929L12.8597 18.1658" stroke="currentColor" stroke-width="1.7" stroke-linecap="round" />
           <path d="M20.5914 25.5713L12.8598 18.1657" stroke="currentColor" stroke-width="1.7" stroke-linecap="round" />
         </svg>

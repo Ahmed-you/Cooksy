@@ -101,21 +101,21 @@
 }
 
 .step-ingredients-container-adjusted {
-  padding: 10px 0 0 0;
-  width: 100%;
+  padding: 10px 0 0 0 !important;
+  width: 100% !important;
 }
 
 .step-ingredients-imgs-container-adjusted {
-  padding: 16px 0 15px 0;
-  overflow: auto;
-  width: 100%;
+  padding: 16px 0 15px 0 !important;
+  overflow: auto !important;
+  width: 100% !important;
 }
 
 .step-ingredient-img-adjusted {
-  height: 64px;
-  width: 64px;
+  height: 64px !important;
+  width: 64px !important;
 }
 
 .step-ingredients-title-adjusted {
-  font-size: 22px;
+  font-size: 22px !important;
 }
