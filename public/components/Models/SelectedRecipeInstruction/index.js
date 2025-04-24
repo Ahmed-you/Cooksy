@@ -12,7 +12,6 @@ const ShowCookingInstruction = (selectedRecipeData) => {
     createTemplate(cookingInstructionPage)
   );
   const stepsContainer = document.querySelector(".steps-container");
-  console.log(selectedRecipeData);
 
   selectedRecipeData[0].analyzedInstructions[0].steps.forEach((step) => {
     stepsContainer.insertAdjacentHTML(
@@ -33,7 +32,6 @@ const ShowCookingInstruction = (selectedRecipeData) => {
 export const ShowSelectedRecipeInDom = (selectedRecipeData) => {
   const originalUrl = selectedRecipeData[0].image;
   const highResUrl = originalUrl.replace(/-\d+x\d+\.jpg$/, "-636x393.jpg");
-  // console.log(selectedRecipeData[0].analyzedInstructions[0].steps);
   let i = 0;
   const allIngredients =
     selectedRecipeData[0].analyzedInstructions[0].steps.reduce((acu, step) => {
@@ -46,7 +44,6 @@ export const ShowSelectedRecipeInDom = (selectedRecipeData) => {
       return acu;
     }, []);
 
-  // console.log(selectedRecipeData);
 
   document.body.insertAdjacentHTML(
     "beforebegin",
@@ -72,19 +69,22 @@ export const ShowSelectedRecipeInDom = (selectedRecipeData) => {
   const startCookingButton = document.querySelector(".start-cooking-button");
   startCookingButton.addEventListener("click", (e) => {
     ShowCookingInstruction(selectedRecipeData);
+
+    let indicator = document.querySelector(".scrollIndicator");
+    let stepsContainer = document.querySelector(".steps-container");
+  
+  
+    stepsContainer?.addEventListener("scroll", () => {
+      let winScroll = stepsContainer.scrollTop; // <-- This is how much you've scrolled!
+      let height = stepsContainer.scrollHeight - stepsContainer.clientHeight; // Total scrollable area
+      let scrolledPercentage = (winScroll / height) * 100;
+  
+  
+      indicator.style.width = scrolledPercentage + "%";
+    });
   });
+ 
 };
-
-let indicator = document.querySelector(".scrollIndicator");
-let stepsContainer = document.querySelector(".steps-container");
-
-stepsContainer?.addEventListener("scroll", () => {
-  let winScroll = stepsContainer.scrollTop; // <-- This is how much you've scrolled!
-  let height = stepsContainer.scrollHeight - stepsContainer.clientHeight; // Total scrollable area
-  let scrolledPercentage = (winScroll / height) * 100;
-
-  indicator.style.width = scrolledPercentage + "%";
-});
 
 document.addEventListener("click", (e) => {
   if (e.target.closest(".instructionPage-returnBTN")) {

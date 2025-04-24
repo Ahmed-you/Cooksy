@@ -1,63 +1,93 @@
-// making the ai remember the chat with the user
+import { GoogleGenerativeAI } from "@google/generative-ai";
+import "dotenv/config";
 import { content } from "./sysContent.js";
 
-let conversationHistory = [
-  {
-    role: "system",
-    content,
-  },
-];
+const genAI = new GoogleGenerativeAI(process.env.GEMINI_API_KEY);
 
-// use trained ai model to extract the ingredients or recipe name  from user input and suggest a recipe name
-export function AiExtractorAssistant(userInput) {
-  conversationHistory.push({ role: "user", content: userInput });
+let conversationHistory = [];
 
-  // Enforce conversation history limits
-  // if (conversationHistory.length > 8) {
-  //   conversationHistory = [
-  //     conversationHistory[0], // Keep system message
-  //     ...conversationHistory.slice(-7), // Keep last 7 messages
-  //   ];
-  // }
+export async function AiExtractorAssistant(userInput) {
+  // Add user input to conversation history
+  conversationHistory.push({ role: "user", parts: [{ text: userInput }] });
 
-  const requestData = {
-    model: "google/gemma-3-27b-it:free",
-    messages: conversationHistory,
-    response_format: { type: "json_object" },
-    temperature: 0.3,
-  };
-
-  return fetch("https://openrouter.ai/api/v1/chat/completions", {
-    method: "POST",
-    headers: {
-      "Content-Type": "application/json",
-      Authorization: `Bearer ${process.env.OPENROUTER_API_KEY}`,
+  const model = genAI.getGenerativeModel({
+    model: "gemini-1.5-flash",
+    generationConfig: {
+      temperature: 0.3,
+      maxOutputTokens: 300,
+      topP: 1,
+      topK: 1,
     },
-    body: JSON.stringify(requestData),
-  })
-    .then(handleResponse)
-    .then(validateJsonStructure)
-    .catch(handleErrors);
-}
-const handleResponse = (response) => {
-  if (!response.ok) {
-    return response.text().then((text) => {
-      throw new Error(`API Error: ${response.status} - ${text}`);
-    });
+    safetySettings: [
+      {
+        category: "HARM_CATEGORY_DANGEROUS_CONTENT",
+        threshold: "BLOCK_NONE",
+      },
+      {
+        category: "HARM_CATEGORY_HATE_SPEECH",
+        threshold: "BLOCK_NONE",
+      },
+      {
+        category: "HARM_CATEGORY_HARASSMENT",
+        threshold: "BLOCK_NONE",
+      },
+      {
+        category: "HARM_CATEGORY_SEXUALLY_EXPLICIT",
+        threshold: "BLOCK_NONE",
+      },
+    ],
+  });
+  const chat = await model.startChat({
+    history: [
+      {
+        role: "user",
+        parts: [
+          {
+            text: `STRICT RULES:
+  You are Cooksy 🍳, a structured cooking assistant (she/her).
+  Always reply in a valid JSON object using this format ONLY:
+  {
+    "recipe_name": "",
+    "ingredients": [],
+    "msg": "your message here",
+    "ready": true/false,
+    "search_mode": ""
   }
-  return response.json();
-};
-
-const validateJsonStructure = (data) => {
-  console.log(data);
+  Never explain yourself. No markdown. No line breaks. Never reply with plain text.
+  
+  ${content}`,
+          },
+        ],
+      },
+      ...conversationHistory,
+    ],
+  });
 
   try {
-    const content = extractJsonContent(data);
-    console.log(content);
+    const result = await chat.sendMessage(userInput);
+    const rawContent = result.response.text();
+    const data = {
+      choices: [{ message: { content: rawContent } }],
+    };
 
-    const parsed = JSON.parse(content);
+    const parsed = validateJsonStructure(data);
 
-    // Validate required structure
+    // Add assistant reply to conversation history
+    conversationHistory.push({
+      role: "model",
+      parts: [{ text: JSON.stringify(parsed) }],
+    });
+
+    return parsed;
+  } catch (error) {
+    return handleErrors(error);
+  }
+}
+
+function validateJsonStructure(data) {
+  try {
+    const parsed = extractJsonContent(data);
+
     const isValid = [
       "recipe_name" in parsed,
       "ingredients" in parsed && Array.isArray(parsed.ingredients),
@@ -68,44 +98,56 @@ const validateJsonStructure = (data) => {
 
     if (!isValid) throw new Error("Invalid response structure");
 
-    // Clean message content
     parsed.msg = parsed.msg
-      .replace(/[\n\*\-•]/g, " ") // Remove forbidden characters
-      .replace(/\s{2,}/g, " ") // Collapse multiple spaces
+      .replace(/[\n\*\-•]/g, " ")
+      .replace(/\s{2,}/g, " ")
       .trim();
 
-    conversationHistory.push({
-      role: "assistant",
-      content: JSON.stringify(parsed),
-    });
     return parsed;
   } catch (error) {
     console.error("Validation failed:", error);
     return fallbackResponse();
   }
-};
+}
 
-const extractJsonContent = (data) => {
-  const rawContent = data.choices[0].message.content;
-  return rawContent
-    .replace(/^[^{]*/, "") // Remove any text before JSON
-    .replace(/[^}]*$/, "") // Remove any text after JSON
-    .replace(/```json/g, "")
-    .replace(/```/g, "")
-    .trim();
-};
+function extractJsonContent(data) {
+  const raw = data.choices?.[0]?.message?.content || "";
 
-const handleErrors = (error) => {
+  const noMarkdown = raw.replace(/```json|```/g, "").trim();
+
+  const startIndex = noMarkdown.indexOf("{");
+  if (startIndex === -1) {
+    console.warn("❌ No '{' found in Gemini output");
+    throw new Error("No JSON start found.");
+  }
+
+  let cleaned = noMarkdown.slice(startIndex).trim();
+
+  if (!cleaned.endsWith("}")) {
+    cleaned += "}";
+  }
+
+  try {
+    return JSON.parse(cleaned);
+  } catch (e) {
+    console.warn("🧨 Failed to parse JSON. Cleaned content:\n", cleaned);
+    throw new Error("Invalid JSON returned from AI");
+  }
+}
+
+function handleErrors(error) {
   console.error("Processing error:", error);
   return fallbackResponse();
-};
+}
 
-const fallbackResponse = () => ({
-  recipe_name: "",
-  ingredients: [],
-  msg: "Let's focus on recipes! How can I assist with your cooking needs? 🍳",
-  ready: false,
-  search_mode: "",
-});
+function fallbackResponse() {
+  return {
+    recipe_name: "",
+    ingredients: [],
+    msg: "Let's focus on recipes! How can I assist with your cooking needs? 🍳",
+    ready: false,
+    search_mode: "",
+  };
+}
 
 export default AiExtractorAssistant;

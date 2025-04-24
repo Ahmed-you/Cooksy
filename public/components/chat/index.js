@@ -19,7 +19,6 @@ cooksyInp.addEventListener("input", () => {
 });
 
 sendIcon.addEventListener("click", (e) => {
-  console.log(isBlockedSend);
 
   if (isBlockedSend) return;
   const userMsg = cooksyInp.value.trim();
@@ -60,22 +59,21 @@ const ChangeAppUiAfterFirstMsg = (userMsg) => {
   topLine.classList.add("fade-effect");
   inputLabel.classList.add("fade-effect");
 
-  // Step 1: Get screen height and form Y position
+  // Get screen height and form Y position
   const screenHeight = window.innerHeight;
   const cooksyInpRect = cooksyInp.getBoundingClientRect();
 
   const currentY = cooksyInpRect.top + cooksyInpRect.height;
 
-  // Step 2: move to the bottom of the page
+  // move to the bottom of the page
   const targetY = screenHeight - 25;
 
   const distance = targetY - currentY;
 
-  // Step 3: Apply that distance as a transform
+  // Apply that distance as a transform
   formContainer.style.transition = "transform 0.7s ease";
   formContainer.style.transform = `translateY(${distance}px)`;
 
-  // Step 4: After animation, reset and snap layout into place
   setTimeout(() => {
     formContainer.style.transform = "";
     formContainer.style.transition = "";
@@ -95,9 +93,7 @@ const ChangeAppUiAfterFirstMsg = (userMsg) => {
 };
 
 export const sendMsg = (insertInElement, Bubble, Msg) => {
-  console.log("insertInElement:", insertInElement);
-  console.log("Bubble:", Bubble);
-  console.log("Msg:", Msg);
+ 
 
   insertInElement.insertAdjacentHTML(
     "beforeend",
@@ -107,7 +103,6 @@ export const sendMsg = (insertInElement, Bubble, Msg) => {
 };
 
 export const sendCooksyMsg = (cooksyRes) => {
-  console.log(cooksyRes);
   const chatBoxElement = document.querySelector(".chatBox");
   const cooksyMsg = cooksyRes.msg || cooksyRes.AIData.msg;
 

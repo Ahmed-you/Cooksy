@@ -119,3 +119,69 @@
 .step-ingredients-title-adjusted {
   font-size: 22px !important;
 }
+
+::-webkit-scrollbar {
+  width: 5px;
+}
+
+::-webkit-scrollbar-track {
+  background-color: transparent;
+}
+
+::-webkit-scrollbar-thumb {
+  background-color: #d9d9d9;
+  border-radius: 5px;
+}
+
+::-webkit-scrollbar-button {
+  display: none;
+}
+
+/* Explicitly handle horizontal scrollbars */
+::-webkit-scrollbar:horizontal {
+  height: 5px;
+}
+
+/* You can keep this for vertical ones */
+::-webkit-scrollbar:vertical {
+  width: 5px;
+}
+
+::-webkit-scrollbar {
+  width: 5px;
+}
+
+::-webkit-scrollbar-track {
+  background-color: transparent;
+}
+
+::-webkit-scrollbar-thumb {
+  background-color: #d9d9d9;
+  border-radius: 5px;
+}
+
+::-webkit-scrollbar-button {
+  display: none;
+}
+
+/* Explicitly handle horizontal scrollbars */
+::-webkit-scrollbar:horizontal {
+  height: 5px;
+}
+
+/* You can keep this for vertical ones */
+::-webkit-scrollbar:vertical {
+  width: 5px;
+}
+
+/* Optionally customize thumb appearance for horizontal too */
+::-webkit-scrollbar-thumb:horizontal {
+  background-color: #d9d9d9;
+  border-radius: 5px;
+}
+
+/* Optionally customize thumb appearance for horizontal too */
+::-webkit-scrollbar-thumb:horizontal {
+  background-color: #d9d9d9;
+  border-radius: 5px;
+}

@@ -10,6 +10,8 @@ import { ShowSelectedRecipe } from "../Models/RecipeDetailsModel/index.js";
 import { BASE_URL } from "../../main.js";
 
 export const handelCooksyFlow = (userMsg) => {
+  console.log(`${BASE_URL}/findRecipes?textInput=${userMsg}`);
+
   const chatBox = document.querySelector(".chatBox");
   sendMsg(chatBox, userBubble, userMsg);
   //insert cooksy msg
@@ -31,7 +33,7 @@ const cooksyRes = (userMsg) => {
         return res.json();
       })
       .then((result) => {
-        console.dir(result);
+        console.log(result);
 
         return resolve(result);
       })

@@ -7,7 +7,6 @@ export const showRecipesInTheGridView = (cooksyRes) => {
   if (!cooksyRes.AIData) {
     return Promise.resolve(cooksyRes);
   }
-  console.log("I am in the showREcipesFunction");
 
   //show grideView of founded recipes
   return new Promise((resolve) => {
@@ -22,7 +21,6 @@ export const showRecipesInTheGridView = (cooksyRes) => {
         const recipeTitle = result.title;
         const imgUrl = result.image;
         const recipeId = result.id;
-        console.log(recipeTitle);
 
         recipeGridContainerElement.insertAdjacentHTML(
           "afterbegin",
@@ -39,7 +37,6 @@ export const showIngredientsInDom = (
   FromInstruction,
   stepEl = null
 ) => {
-  console.log(ingredientsArray);
   let IngredientsImgsContainer;
   let WantedIngredientHtml;
 
