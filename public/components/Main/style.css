@@ -3,15 +3,14 @@
 @import url("../Models/style.css");
 @import url("../RecipeGrid/style.css");
 
-
 .main-container {
   width: 720px;
   padding: 16px 16px 25px 16px;
   display: flex;
-  height: 100vh;
+  height: 100dvh;
   flex-direction: column;
   justify-content: flex-start;
-  gap: 25%;
+  gap: 22%;
   align-items: center;
   transition: justify-content 0.5s ease;
 }

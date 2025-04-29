@@ -33,8 +33,10 @@ app.use((err, req, res, next) => {
   res.status(500).send("Internal Server Error");
 });
 
+app.use(express.static(path.join(__dirname, "../public")));
+
 app.disable("x-powered-by");
 
 // app.use(favicon(path.join(__dirname, "../public", "favicon.ico")));
 
-export default app
+export default app;

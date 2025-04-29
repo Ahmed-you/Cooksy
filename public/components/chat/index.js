@@ -19,17 +19,17 @@ cooksyInp.addEventListener("input", () => {
 });
 
 sendIcon.addEventListener("click", (e) => {
-
-  if (isBlockedSend) return;
   const userMsg = cooksyInp.value.trim();
+  if (isBlockedSend) return;
+
   if (!userMsg) return;
 
   if (!IsMoreThen1Msg) {
     ChangeAppUiAfterFirstMsg(userMsg);
   } else {
+    sendIcon.classList.add("hide");
     isBlockedSend = true;
-
-    handelCooksyFlow();
+    handelCooksyFlow(userMsg);
   }
 
   cooksyInp.value = "";
@@ -93,8 +93,6 @@ const ChangeAppUiAfterFirstMsg = (userMsg) => {
 };
 
 export const sendMsg = (insertInElement, Bubble, Msg) => {
- 
-
   insertInElement.insertAdjacentHTML(
     "beforeend",
     createTemplate(Bubble, { Msg })
