@@ -4,13 +4,11 @@
 </h1>
 
 <p><strong>Your Friendly AI Cooking Assistant 🍳</strong></p>
+<br>
 
----
 
-> 🚧 **This project is currently under active development.**  
-> The website is not live yet — stay tuned for updates and new features!
-
----
+## Try The App ==> https://cooksy-production.up.railway.app/
+<br>
 
 ## 🧑‍🍳 What is Cooksy?
 
@@ -21,7 +19,8 @@ Cooksy is a chat-based AI assistant that helps you find recipes based on:
 
 Just type a message like _"I have chicken and rice"_ or _"Find pasta recipes"_ and Cooksy will guide you toward the best matching options using the Spoonacular API.
 
-> ✨ **Coming Soon**: You'll also be able to view full recipe details and cook along with step-by-step guidance
+ Then u select a recipe and view full recipe details and cook along 
+ with step-by-step guidance
 
 ---
 
@@ -29,9 +28,9 @@ Just type a message like _"I have chicken and rice"_ or _"Find pasta recipes"_ a
 
 - 🔍 Search recipes by **dish name** or **ingredients**
 - 🤖 Chat-style interaction for a smooth and simple experience
-- 📋 Clickable recipe cards with names and images
+- 📋 Clickable recipe cards, each with a recipe name and a thumbnail
 - 🛠️ Clean, responsive UI built with vanilla JS
-- 🧑‍🍳 **Step-by-step cooking mode** (planned feature)
+- 🧑‍🍳 Step-by-step cooking mode
 
 ---
 
